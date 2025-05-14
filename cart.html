@@ -1,0 +1,141 @@
+<!-- This is the HTML structure for the shopping cart page of an ecommerce site. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Metadata and linking external resources -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart - My Ecommerce Site</title>
+  <link rel="stylesheet" href="stylesheet.css" /> <!-- Link to the CSS file -->
+</head>
+<body>
+  <!-- Header section with navigation -->
+  <header>
+    <nav>
+      <ul>
+        <!-- Navigation links -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content section -->
+  <main>
+    <section class="cart">
+      <h1>Your Shopping Cart</h1>
+      <!-- Table for displaying cart items -->
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+          <!-- Cart items will be dynamically loaded here -->
+        </tbody>
+      </table>
+      <!-- Cart summary section -->
+      <div id="cart-summary">
+        <p><strong>Total: R<span id="total-price">0.00</span></strong></p>
+      </div>
+      <!-- Checkout button -->
+      <button onclick="checkout()">Proceed to Checkout</button>
+    </section>
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <p>&copy; 2025 My Ecommerce Site</p>
+  </footer>
+
+  <!-- JavaScript for cart functionality -->
+  <script>
+    /**
+     * Loads the cart items from localStorage and displays them in the table.
+     */
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || []; // Retrieve cart from localStorage or initialize an empty array
+      const cartTable = document.getElementById("cart-items");
+      const totalDisplay = document.getElementById("total-price");
+
+      cartTable.innerHTML = ""; // Clear the table before loading items
+      let total = 0;
+
+      // Loop through each item in the cart and display it
+      cart.forEach((item, index) => {
+        const subtotal = item.price * item.quantity; // Calculate subtotal for the item
+        total += subtotal; // Add to the total price
+
+        // Create a table row for the item
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>R${item.price.toFixed(2)}</td>
+          <td>
+            <button onclick="changeQuantity(${index}, -1)">−</button>
+            ${item.quantity}
+            <button onclick="changeQuantity(${index}, 1)">+</button>
+          </td>
+          <td>R${subtotal.toFixed(2)}</td>
+          <td><button onclick="removeItem(${index})">Remove</button></td>
+        `;
+        cartTable.appendChild(row); // Add the row to the table
+      });
+
+      totalDisplay.innerText = total.toFixed(2); // Update the total price display
+    }
+
+    /**
+     * Changes the quantity of an item in the cart.
+     * @param {number} index - The index of the item in the cart.
+     * @param {number} amount - The amount to change the quantity by.
+     */
+    function changeQuantity(index, amount) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity += amount;
+
+      // If quantity is less than 1, confirm removal
+      if (cart[index].quantity < 1) {
+        if (confirm("Quantity is 0. Remove this item from cart?")) {
+          cart.splice(index, 1); // Remove the item from the cart
+        } else {
+          cart[index].quantity = 1; // Reset quantity to 1
+        }
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart)); // Save the updated cart to localStorage
+      loadCart(); // Reload the cart
+    }
+
+    /**
+     * Removes an item from the cart.
+     * @param {number} index - The index of the item to remove.
+     */
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1); // Remove the item from the cart
+      localStorage.setItem("cart", JSON.stringify(cart)); // Save the updated cart to localStorage
+      loadCart(); // Reload the cart
+    }
+
+    /**
+     * Handles the checkout process.
+     */
+    function checkout() {
+      alert("Thank you for your purchase!"); // Display a thank-you message
+      localStorage.removeItem("cart"); // Clear the cart from localStorage
+      loadCart(); // Reload the cart
+    }
+
+    // Load the cart when the page is loaded
+    window.onload = loadCart;
+  </script>
+</body>
+</html>

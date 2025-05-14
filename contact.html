@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Metadata and linking external resources -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - My Ecommerce Site</title>
+  <link rel="stylesheet" href="stylesheet.css" /> <!-- Link to the CSS file -->
+</head>
+<body>
+  <!-- Header section with navigation -->
+  <header>
+    <nav>
+      <ul>
+        <!-- Navigation links -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content section -->
+  <main>
+    <!-- Contact Form Section -->
+    <section id="contact" class="section">
+      <h2>Send a Query or Comment</h2>
+      <!-- Contact form -->
+      <form action="mailto:mphot528@gmail.com" method="post" enctype="text/plain">
+        <!-- Name Input -->
+        <label for="name">Name and Surname:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+        <!-- Email Input -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+        <!-- Comment or Query Input -->
+        <label for="comment">Comment or Query:</label>
+        <textarea id="comment" name="comment" rows="5" placeholder="Enter your comment or query" required></textarea>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Send">
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <p>&copy; 2025 My Ecommerce Site</p>
+  </footer>
+
+  <!-- JavaScript file for additional functionality -->
+  <script src="script.js"></script>
+</body>
+</html>

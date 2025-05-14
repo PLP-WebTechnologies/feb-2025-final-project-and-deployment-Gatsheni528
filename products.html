@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Metadata and linking external resources -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - My Ecommerce Site</title>
+  <link rel="stylesheet" href="stylesheet.css" /> <!-- Link to the CSS file -->
+</head>
+<body>
+  <!-- Header section with navigation -->
+  <header>
+    <nav>
+      <ul>
+        <!-- Navigation links -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content section -->
+  <main>
+    <section class="products">
+      <h1>Our Products</h1>
+
+      <!-- Product 1 -->
+      <div class="product">
+        <h1>Leggings</h1>
+        <img src="leggings.jpg" alt="Product Image" />
+        <p>Used for cold seasons to keep you warm, they're very much comfortable and easy to wear.</p>
+        <p><strong>Price:</strong> R80.00</p>
+        <button onclick="addToCart('Leggings', 80)">Add to Cart</button>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product">
+        <h1>Temperature Flusk</h1>
+        <img src="Flusk.jpg" alt="Product Image" />
+        <p>Our state-of-the-art flusk keeps your fluids at the exact temperature of your choice.</p>
+        <p><strong>Price:</strong> R100.00</p>
+        <button onclick="addToCart('Temperature Flusk', 100)">Add to Cart</button>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product">
+        <h1>Sleepers</h1>
+        <img src="SleepOn.jpg" alt="Product Image" />
+        <p>Very comfortable to keep you relaxed and warm after a long day.</p>
+        <p><strong>Price:</strong> R250.00</p>
+        <button onclick="addToCart('Sleepers', 250)">Add to Cart</button>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product">
+        <h1>Phenifa</h1>
+        <img src="Phenifa.jpg" alt="Product Image" />
+        <p>Our African print Phenifas for different occasions and events for true African Women.</p>
+        <p><strong>Price:</strong> R200.00</p>
+        <button onclick="addToCart('Phenifa', 200)">Add to Cart</button>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product">
+        <h1>Water Bag</h1>
+        <img src="Bottle.jpg" alt="Product Image" />
+        <p>Best for comfort and to keep you warm through winter seasons and other uses.</p>
+        <p><strong>Price:</strong> R100.00</p>
+        <button onclick="addToCart('Water Bag', 100)">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <p>&copy; 2025 My Ecommerce Site</p>
+  </footer>
+
+  <!-- JavaScript for adding products to the cart -->
+  <script>
+    /**
+     * Adds a product to the cart and stores it in localStorage.
+     * @param {string} name - The name of the product.
+     * @param {number} price - The price of the product.
+     */
+    function addToCart(name, price) {
+      const product = { name, price, quantity: 1 }; // Create a product object
+      let cart = JSON.parse(localStorage.getItem("cart")) || []; // Retrieve the cart from localStorage or initialize an empty array
+
+      // Check if the product already exists in the cart
+      const existingProduct = cart.find(item => item.name === name);
+      if (existingProduct) {
+        existingProduct.quantity += 1; // Increment quantity if the product exists
+      } else {
+        cart.push(product); // Add new product to the cart
+      }
+
+      // Save the updated cart back to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} has been added to your cart.`); // Notify the user
+    }
+  </script>
+</body>
+</html>
